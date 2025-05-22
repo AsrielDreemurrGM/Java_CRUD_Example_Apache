@@ -1,0 +1,33 @@
+# NetBeans private project files (user-specific, sensitive)
+nbproject/private/
+
+# Build output folders
+build/
+dist/
+
+# Compiled class files
+*.class
+
+# NetBeans generated logs and cache
+nbbuild/
+nbdist/
+.nb-gradle/
+
+# Package files created by NetBeans
+*.jar
+*.war
+*.ear
+
+# Mac OS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+
+# Backup files
+*~
+*.bak
+
+# IDE specific
+.vscode/
+.idea/
