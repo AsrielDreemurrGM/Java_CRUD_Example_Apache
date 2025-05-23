@@ -304,6 +304,8 @@ public class Dashboard extends javax.swing.JFrame {
         txtAddressNumber.setText(client.getAddressNumber());
         txtCity.setText(client.getCity());
         txtState.setText(client.getState());
+        
+        txtCpf.setEditable(false);
     }//GEN-LAST:event_clientsTableMouseClicked
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -337,6 +339,11 @@ public class Dashboard extends javax.swing.JFrame {
 
     private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
         int selectedLine = clientsTable.getSelectedRow();
+        
+        if (selectedLine < 0) {
+        JOptionPane.showMessageDialog(null, "Nenhum cliente selecionado", "Erro", JOptionPane.ERROR_MESSAGE);
+        return;
+        }
         
         if (selectedLine >= 0) {
             String cpf = (String) clientsTable.getValueAt(selectedLine, 1);
@@ -459,5 +466,7 @@ public class Dashboard extends javax.swing.JFrame {
         txtAddressNumber.setText("");
         txtCity.setText("");
         txtState.setText("");
+        
+        txtCpf.setEditable(true);
     }
 }
