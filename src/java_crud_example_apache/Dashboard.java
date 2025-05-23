@@ -48,11 +48,19 @@ public class Dashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         clientsTable = new javax.swing.JTable();
         deleteButton = new javax.swing.JButton();
-        cleanButton = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        close = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        clearButton = new javax.swing.JButton();
+        modifyButton = new javax.swing.JButton();
+        cityLabel = new javax.swing.JLabel();
+        txtCity = new javax.swing.JTextField();
+        phoneLabel = new javax.swing.JLabel();
+        txtPhone = new javax.swing.JTextField();
+        addressNumberLabel = new javax.swing.JLabel();
+        txtAddressNumber = new javax.swing.JTextField();
+        stateLabel = new javax.swing.JLabel();
+        txtState = new javax.swing.JTextField();
+        optionsBar = new javax.swing.JMenuBar();
+        optionsMenu = new javax.swing.JMenu();
+        exitOption = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,67 +102,93 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        cleanButton.setText("Limpar");
-        cleanButton.addActionListener(new java.awt.event.ActionListener() {
+        clearButton.setText("Limpar");
+        clearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cleanButtonActionPerformed(evt);
+                clearButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Modificar");
+        modifyButton.setText("Modificar");
 
-        close.setText("Opções");
-        close.addActionListener(new java.awt.event.ActionListener() {
+        cityLabel.setText("Cidade:");
+
+        phoneLabel.setText("Telefone:");
+
+        addressNumberLabel.setText("Número:");
+
+        stateLabel.setText("Estado:");
+
+        optionsMenu.setText("Opções");
+        optionsMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeActionPerformed(evt);
+                optionsMenuActionPerformed(evt);
             }
         });
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
-        jMenuItem1.setText("Sair");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        exitOption.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ESCAPE, 0));
+        exitOption.setText("Sair");
+        exitOption.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                exitOptionActionPerformed(evt);
             }
         });
-        close.add(jMenuItem1);
+        optionsMenu.add(exitOption);
 
-        jMenuBar1.add(close);
+        optionsBar.add(optionsMenu);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(optionsBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(32, 32, 32)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(nameLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cpfLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(nameLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(cityLabel)
+                                            .addComponent(addressLabel)
+                                            .addComponent(phoneLabel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtAddress)
+                                            .addComponent(txtCity)
+                                            .addComponent(txtPhone, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(stateLabel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(cpfLabel))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cleanButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(deleteButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1)
-                                .addGap(18, 18, 18)
-                                .addComponent(saveButton))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(addressLabel)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(addressNumberLabel)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(clearButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(deleteButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(modifyButton)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(saveButton)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(txtAddressNumber)
+                            .addComponent(txtState))
+                        .addGap(120, 120, 120)))
+                .addGap(32, 32, 32))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,34 +201,46 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(txtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(phoneLabel)
+                    .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addressLabel)
-                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 94, Short.MAX_VALUE)
+                    .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addressNumberLabel)
+                    .addComponent(txtAddressNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cityLabel)
+                    .addComponent(stateLabel)
+                    .addComponent(txtState, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(saveButton)
                     .addComponent(deleteButton)
-                    .addComponent(cleanButton)
-                    .addComponent(jButton1))
+                    .addComponent(clearButton)
+                    .addComponent(modifyButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void exitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitOptionActionPerformed
         int result = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja sair?", "Sair",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_OPTION) {
             System.exit(0);
                 }
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_exitOptionActionPerformed
 
-    private void closeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeActionPerformed
+    private void optionsMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsMenuActionPerformed
                 // TODO add your handling code here:
-    }//GEN-LAST:event_closeActionPerformed
+    }//GEN-LAST:event_optionsMenuActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
       String name = txtName.getText();
@@ -248,9 +294,9 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
-    private void cleanButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cleanButtonActionPerformed
+    private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         emptyFields();
-    }//GEN-LAST:event_cleanButtonActionPerformed
+    }//GEN-LAST:event_clearButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,20 +325,28 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel addressLabel;
-    private javax.swing.JButton cleanButton;
+    private javax.swing.JLabel addressNumberLabel;
+    private javax.swing.JLabel cityLabel;
+    private javax.swing.JButton clearButton;
     private javax.swing.JTable clientsTable;
-    private javax.swing.JMenu close;
     private javax.swing.JLabel cpfLabel;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem exitOption;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton modifyButton;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JMenuBar optionsBar;
+    private javax.swing.JMenu optionsMenu;
+    private javax.swing.JLabel phoneLabel;
     private javax.swing.JButton saveButton;
+    private javax.swing.JLabel stateLabel;
     private javax.swing.JTextField txtAddress;
+    private javax.swing.JTextField txtAddressNumber;
+    private javax.swing.JTextField txtCity;
     private javax.swing.JTextField txtCpf;
     private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtPhone;
+    private javax.swing.JTextField txtState;
     // End of variables declaration//GEN-END:variables
 
     private boolean isValidField(String... fields) {
