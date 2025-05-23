@@ -14,7 +14,8 @@ public class Java_CRUD_Example_Apache {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Dashboard dashboard = new Dashboard();
+        dashboard.setVisible(true);
     }
     
 }
