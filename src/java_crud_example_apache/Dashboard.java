@@ -363,7 +363,12 @@ public class Dashboard extends javax.swing.JFrame {
                 clientDAO.modify(updatedClient);
                 
                 model.setValueAt(name, selectedLine, 0);
-                model.setValueAt(address, selectedLine, 2);
+                model.setValueAt(cpf, selectedLine, 1);
+                model.setValueAt(phoneNumber, selectedLine, 2);
+                model.setValueAt(address, selectedLine, 3);
+                model.setValueAt(addressNumber, selectedLine, 4);
+                model.setValueAt(city, selectedLine, 5);
+                model.setValueAt(state, selectedLine, 6);
 
                 JOptionPane.showMessageDialog(null,
                         "Cliente atualizado com sucesso",
