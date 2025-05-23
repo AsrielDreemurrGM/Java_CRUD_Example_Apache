@@ -79,15 +79,23 @@ public class Dashboard extends javax.swing.JFrame {
 
         clientsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nome", "CPF", "Telefone", "Endereço", "Número", "Cidade", "Estado"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         clientsTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 clientsTableMouseClicked(evt);
@@ -110,6 +118,11 @@ public class Dashboard extends javax.swing.JFrame {
         });
 
         modifyButton.setText("Modificar");
+        modifyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modifyButtonActionPerformed(evt);
+            }
+        });
 
         cityLabel.setText("Cidade:");
 
@@ -230,7 +243,9 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void exitOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitOptionActionPerformed
-        int result = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja sair?", "Sair",
+        int result = JOptionPane.showConfirmDialog(this,
+                "Você tem certeza que deseja sair?",
+                "Sair",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE);
         if(result == JOptionPane.YES_OPTION) {
@@ -246,21 +261,34 @@ public class Dashboard extends javax.swing.JFrame {
       String name = txtName.getText();
       String cpf = txtCpf.getText();
       String address = txtAddress.getText();
+      String phoneNumber = txtPhone.getText();
+      String addressNumber = txtAddressNumber.getText();
+      String city = txtCity.getText();
+      String state = txtState.getText();
       
-      if (!isValidField(name, cpf, address)) {
+      if (!isValidField(name, cpf, phoneNumber, address, addressNumber, city, state)) {
           JOptionPane.showMessageDialog(null, "Existem campos a serem preenchidos", "Aviso", JOptionPane.INFORMATION_MESSAGE);
           return;
       }
       
-      Client client = new Client(name, cpf, "Teste", address, "Teste", "Teste", "Teste");
+      Client client = new Client(name, cpf, phoneNumber, address, addressNumber, city, state);
       Boolean isRegistered = this.clientDAO.register(client);
       
       if (isRegistered) {
-         model.addRow(new Object[]{client.getName(), client.getCpf(), client.getAddress()});
+         model.addRow(new Object[]{
+             client.getName(),
+             client.getCpf(),
+             client.getPhoneNumber(),
+             client.getAddress(),
+             client.getAddressNumber(),
+             client.getCity(),
+             client.getState(),
+         });
          emptyFields();
       } else {
           JOptionPane.showMessageDialog(null, "Cliente já se encontra cadastrado", "Aviso", JOptionPane.WARNING_MESSAGE);
-          }
+          emptyFields();
+      }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void clientsTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clientsTableMouseClicked
@@ -271,14 +299,20 @@ public class Dashboard extends javax.swing.JFrame {
         
         txtName.setText(client.getName());
         txtCpf.setText(client.getCpf());
+        txtPhone.setText(client.getPhoneNumber());
         txtAddress.setText(client.getAddress());
+        txtAddressNumber.setText(client.getAddressNumber());
+        txtCity.setText(client.getCity());
+        txtState.setText(client.getState());
     }//GEN-LAST:event_clientsTableMouseClicked
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         int selectedLine = clientsTable.getSelectedRow();
         
         if (selectedLine >= 0) {
-            int result = JOptionPane.showConfirmDialog(this, "Deseja realmente excluir este cliente?", "Aviso",
+            int result = JOptionPane.showConfirmDialog(this,
+                    "Deseja realmente excluir este cliente?",
+                    "Aviso",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE);
             if (result == JOptionPane.YES_OPTION) {
@@ -286,7 +320,10 @@ public class Dashboard extends javax.swing.JFrame {
                 this.clientDAO.delete(cpf);
                 model.removeRow(selectedLine);
                 
-                JOptionPane.showMessageDialog(null, "Cliente excluído com sucesso", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Cliente excluído com sucesso",
+                        "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE);
                 emptyFields();
             }
         } else {
@@ -297,6 +334,45 @@ public class Dashboard extends javax.swing.JFrame {
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         emptyFields();
     }//GEN-LAST:event_clearButtonActionPerformed
+
+    private void modifyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modifyButtonActionPerformed
+        int selectedLine = clientsTable.getSelectedRow();
+        
+        if (selectedLine >= 0) {
+            String cpf = (String) clientsTable.getValueAt(selectedLine, 1);
+            Client existingClient = clientDAO.search(cpf);
+            
+            if (existingClient != null) {
+                String name = txtName.getText();
+                String phoneNumber = txtPhone.getText();
+                String address = txtAddress.getText();
+                String addressNumber = txtAddressNumber.getText();
+                String city = txtCity.getText();
+                String state = txtState.getText();
+                
+                if (!isValidField(name, cpf, phoneNumber, address, addressNumber, city, state)) {
+                    JOptionPane.showMessageDialog(
+                            null,
+                            "Existem campos a serem preenchidos",
+                            "Aviso",
+                            JOptionPane.INFORMATION_MESSAGE);
+                return;
+                }
+                
+                Client updatedClient = new Client(name, cpf, phoneNumber, address, addressNumber, city, state);
+                clientDAO.modify(updatedClient);
+                
+                model.setValueAt(name, selectedLine, 0);
+                model.setValueAt(address, selectedLine, 2);
+
+                JOptionPane.showMessageDialog(null,
+                        "Cliente atualizado com sucesso",
+                        "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE);
+                emptyFields();
+            }
+        }
+    }//GEN-LAST:event_modifyButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -361,7 +437,11 @@ public class Dashboard extends javax.swing.JFrame {
     private void initCustomComponents() {
         model.addColumn("Nome");
         model.addColumn("CPF");
+        model.addColumn("Telefone");
         model.addColumn("Endereço");
+        model.addColumn("Número");
+        model.addColumn("Cidade");
+        model.addColumn("Estado");
         
         clientsTable.setModel(model);
     }
@@ -369,6 +449,10 @@ public class Dashboard extends javax.swing.JFrame {
     private void emptyFields() {
         txtName.setText("");
         txtCpf.setText("");
+        txtPhone.setText("");
         txtAddress.setText("");
+        txtAddressNumber.setText("");
+        txtCity.setText("");
+        txtState.setText("");
     }
 }
